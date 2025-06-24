@@ -31,7 +31,7 @@ def leer_archivo(archivo_path:  str) -> pd.DataFrame:
         raise ValueError("Formato de archivo no soportado")
 
 
-def separar_columnas(df:  pd.DataFrame) -> tuple[pd.DataFrame, pd.DataFrame]:
+def separar_columnas(df:  pd.DataFrame, patrones = ['\[Importancia\]', '\[Urgencia\]', '\[Esfuerzo organizativo\]', '\[Impacto\]']) -> tuple[pd.DataFrame, pd.DataFrame]:
     """
     Separa las columnas de un DataFrame en dos grupos: aquellas que contienen patrones específicos
     y aquellas que no.
@@ -48,7 +48,7 @@ def separar_columnas(df:  pd.DataFrame) -> tuple[pd.DataFrame, pd.DataFrame]:
         tuple[pd.DataFrame, pd.DataFrame]: columnas que cumplen los patrones y columnas que no cumplen los patrones.
     """    
     
-    patrones = ['\[Importancia\]', '\[Urgencia\]', '\[Esfuerzo organizativo\]', '\[Impacto\]']
+    # patrones = ['\[Importancia\]', '\[Urgencia\]', '\[Esfuerzo organizativo\]', '\[Impacto\]']
 
     columnas_matriz = []
     columnas_fuera_matriz = []
