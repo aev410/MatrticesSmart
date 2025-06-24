@@ -74,15 +74,37 @@ def obtener_datos(df: pd.DataFrame, columnas: list) -> pd.DataFrame:
     """
     return df[columnas]
 
+def media_columna(df: pd.DataFrame, columnas: list) -> pd.DataFrame:
+    """Calcula la media de las columnas especificadas en un DataFrame.
+
+    Args:
+        df (pd.DataFrame): DataFrame del que se calculará la media.
+        columnas (list): Lista de nombres de columnas para calcular la media.
+
+    Returns:
+        pd.DataFrame: DataFrame con la media de las columnas especificadas.
+    """
+    datos_media = {}
+    for col in columnas:
+        datos_media[col] = df[col].mean()
+        
+    datos_media_df = pd.DataFrame(datos_media, index=[0])
+    return datos_media_df.reset_index()
 
 if __name__ == "__main__":
     ruta = '../test/data/datos.xlsx'
     df = leer_archivo(ruta)
     print("Columnas originales:", df.columns.tolist())
     columnas_matriz, columnas_fuera_matriz = separar_columnas(df)
-    print("Columnas separadas:")
-    print("Columnas en matriz:", columnas_matriz)
-    print("Columnas fuera de matriz:", columnas_fuera_matriz)
-    print("\n\nDatos sobrantes:")
-    print(obtener_datos(df, columnas_matriz).head())
+    # print("Columnas separadas:")
+    # print("Columnas en matriz:", columnas_matriz)
+    # print("Columnas fuera de matriz:", columnas_fuera_matriz)
+    # print("\n\nDatos sobrantes:")
+    # print(obtener_datos(df, columnas_matriz).head())
     
+    print("\n\nMedia de las columnas:")
+    
+    # media_columna(df, columnas_matriz).to_csv('media_columnas.csv', index=False)
+    media_col = media_columna(df, columnas_matriz)
+    
+    print(media_col[columnas_matriz[0]].to_string(index=False))
